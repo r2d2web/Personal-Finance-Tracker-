@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Finance Tracker</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            background-color: rgb(88, 126, 105);
+        }
+        nav {
+            display: flex;
+            flex-direction: column;
+            width: 200px;
+            background-color: rgb(0, 85, 100);
+            text-align: center;
+            padding: 10px;
+            border-top-right-radius: 20px;
+        }
+        nav span {
+            color: rgb(241, 235, 217);
+            font-size: 23pt;
+        }
+        .parent {
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+        }
+        .col {
+            height: 100%;
+            width: 300px;
+            /*background-color: red;*/
+            margin-left: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .col-mid {
+            height: 100%;
+            width: 400px;
+            /*background-color: rgb(0, 68, 255);*/
+            margin-left: 20px;   
+        }
+        .top-child {
+            height: 70px;
+            width: 100%;
+            background-color: rgb(241, 235, 217);
+            border-radius: 20px;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            align-content: center;
+            text-align: center;
+        }
+        .top-child span {
+            color: rgb(88, 126, 105);
+            font-size: 23pt;
+        }
+        .mid-child {
+            height: 300px;
+            width: 100%;
+            background-color: rgb(241, 235, 217);
+            border-radius: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            justify-items: center;
+            align-content: center;
+        }
+        .mid-child span {
+            color: rgb(88, 126, 105);
+            font-size: 23pt;
+        }
+        .mid-child li {
+            font-size: 9pt;
+        }
+        #mid-child li {
+            font-size: 15pt;
+        }
+        .mid-child h1 {
+            font-size: 10pt;
+            color: rgb(0, 85, 100);
+        }
+        .first-bottom {
+            height: 35vh;
+            width: 100%;
+            background-color: rgb(241, 235, 217);
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+        .second-bottom {
+            height: 15vh;
+            width: 100%;
+            background-color: rgb(241, 235, 217);
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            border: solid 2px rgb(88, 126, 105);
+            height: 30px;
+            border-radius: 20px;
+        }
+        .btn:hover {
+            background-color: rgb(88, 126, 105);
+        }
+        .input {
+            height: 25px;
+            border-radius: 20px;
+            border: none;
+        }
+        .second-bottom {
+            text-align: center;
+            align-content: center;
+            font-size: 45pt;
+            color: rgb(88, 126, 105);
+            font-weight: 700;
+        }
+
+
+        #divContainer {
+            display: flex;
+            gap: 5px; /* Space between items */
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container input {
+            width: 24px;
+            background-color: transparent;
+            border: solid 1px black;
+            border-radius: 3px;
+        }
+        .dynamicDiv {
+            width: 15px;
+            background-image: linear-gradient(to bottom, rgb(88, 126, 105), rgb(77, 77, 77), rgb(0, 85, 100));
+            transition: height 0.3s ease;
+            margin-top: 10px;
+            border-radius: 10px;
+        }
+        p {
+            font-size: 10.6pt;
+        }
+        
+        #items {
+            font-size: 20pt;
+        }
+        h6 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="parent">
+        <nav>
+            <span>Dashboard</span>
+            <span style="font-size: 12pt; margin-top: 10px;">Enter your name</span>
+            <input type="text" placeholder="Name" id="user-name" class="input">
+            <span style="font-size: 12pt; margin-top: 10px;">Enter your salary</span>
+            <input type="number" placeholder="Salary" id="user-salary" class="input">
+            <button id="submit" class="btn" style="margin-top: 20px;">Enter Data</button>
+            <br>
+            <span>Budgeting</span>
+            <span style="font-size: 12pt; margin-top: 10px;">Enter an item</span>
+            <input type="text" placeholder="Item name" id="item-name" class="input">
+            <span style="font-size: 12pt; margin-top: 10px;">Enter the price of the item</span>
+            <input type="number" placeholder="Item price" id="item-price" class="input">
+            <span style="font-size: 12pt; margin-top: 10px;">Enter the percentage of need</span>
+            <input type="number" placeholder="Need percentage" id="item-percent" class="input">
+            <button id="add-list" class="btn" style="margin-top: 20px;">Enter Data</button>
+            <br>
+            <span>Expenses</span>
+            <span style="font-size: 12pt; margin-top: 10px;">Enter prices of needs</span>
+            <input type="number" placeholder="GHS 0.00" id="input-expense" class="input">
+            <button id="expense" class="btn" style="margin-top: 20px;">Enter Data</button>
+
+        </nav>
+        <div class="col">
+            <div class="top-child">
+                <b><span id="name-output">USER:</span></b>
+            </div>
+            <div class="mid-child" style="text-align: left; align-content: normal; height: 580px;">
+                <h1>From the panel on the left;</h1>
+                <h6 style="margin: 0; padding: 0;">Dashboard:</h6>
+                <ul>
+                    <li>The user is meant to enter their name and income in their repective sections</li>
+                    <li>The user is then to click the "Enter Data" button right underneath the textbox for income</li>
+                </ul>
+                <p>The name and income will be displayed on top of the left and middle column respectively.</p>
+                <h6 style="margin: 0; padding: 0;">Budgeting</h6>
+                <ul>
+                    <li>The user is meant to enter items they are going to spend on for the month</li>
+                    <li>There are three sections/textboxes provided for this. They are; the place for the names of items, the area for the price of that item, and the prcentage level of need the user has for that item</li>
+                    <li>The user is then to click the "Enter Data" button after each items entry.</li>
+                </ul>
+                <p>The boxes will clear up after each clicking the button. Each entry will appear at the second row of the right column in the form of a list.</p>
+                <p style="color: rgb(0, 63, 0);">
+                    Now to the second row from the column in the middle: <br> This section displays a graphical representation of the level of need the user has for anitem. The section has two sets of textboxes; top and bottom. The user is supposed to enter the abbreviations of the items at the top and their level of need (which is in percentage) at the bottom. A y-axis bar will automatically be drawn after the percentages of each item is entered.
+                </p>
+
+            </div>
+        </div>
+        <div class="col-mid">
+            <div class="top-child">
+                <b><span id="sal-output">NET INCOME: GHS0.00</span></b>
+            </div>
+            <!--here-->
+            <div class="mid-child">
+                <span>Level of need of items</span>
+                <div id="divContainer"></div>
+            </div>
+            <div class="second-bottom" style="height: 34.5vh; text-align: left; align-content: normal; font-size: 10pt; color: black; font-weight: 100;">
+                <h1 style="font-size: 10pt; color: rgb(0, 85, 100); text-align: center;">
+                    From the panel on the left;
+                </h1>
+                <p style="color: black; font-weight: 100; margin-top: -5px; margin-bottom: 5px;">
+                    From the graph section, The user is supposed to select items with the longest y-axis bars first and enter their costs in:
+                </p>
+                <h6 style="margin: -8px; padding: 0; font-size: 10pt;">Expenses</h6>
+                <ul>
+                    <li>The user is meant to enter the price of the items with the highest need (as the graps shows) first.</li>
+                    <li>The user is then to click the "Enter Data" button after each price has been entered.</li>
+                </ul>
+                <p>The prices will each get deducted from the users income which was entered in the beginning. The remaining/surplus left will be displayed at the third row of the right column. <br> If there's enough surplus available, the user can move on to enter the prices of items with shorter bars. </p>
+            </div>
+        </div>
+        <div class="col">
+            <div class="top-child">
+                <span id="goals">No. of goals: <b>####</b></span>
+            </div>
+            <div class="mid-child" id="mid-child">
+                <span>Item || Price || Need</span>
+                <ul id="items"></ul>
+            </div>
+            <div class="second-bottom" style="align-content: normal;">
+                <span id="surplus-output" style="font-size: 20pt;">Surplus: <b>####</b></span>
+            </div>
+            <div class="second-bottom">
+                <span id="clock"></span>
+            </div>
+        </div>
+    </div>
+    <script>
+    let username;
+    let userSalary = 0;
+    let totalExpenses = 0;
+
+    document.getElementById('submit').onclick = function () {
+        username = document.getElementById('user-name').value;
+        userSalary = parseFloat(document.getElementById('user-salary').value) || 0;
+        totalExpenses = 0; // Reset total expenses when salary is re-entered
+        document.getElementById('name-output').textContent = `USER: ${username}`;
+        document.getElementById('sal-output').textContent = `NET INCOME: GHS ${userSalary.toFixed(2)}`;
+        document.getElementById('surplus-output').textContent = `Surplus: GHS ${userSalary.toFixed(2)}`;
+        document.getElementById('user-name').value = ''; // Clear the input field
+        document.getElementById('user-salary').value = ''; // Clear the input field
+    };
+
+    document.getElementById('expense').onclick = function () {
+    const expense = parseFloat(document.getElementById('input-expense').value) || 0;
+    totalExpenses += expense;
+    const surplus = userSalary - totalExpenses;
+    document.getElementById('surplus-output').textContent = `Surplus: GHS ${surplus.toFixed(2)}`;
+    document.getElementById('input-expense').value = ''; // Clear the input field
+    };
+
+    let clickCount = 0;
+
+    document.getElementById('add-list').addEventListener('click', function() {
+    // Increment the click counter
+        clickCount++;
+
+        // Display the click count (optional)
+        document.getElementById('goals').textContent = `No. of Goals: ${clickCount}`;
+
+        // Get input values
+        const itemName = document.getElementById('item-name').value.trim();
+        const itemPrice = document.getElementById('item-price').value.trim();
+        const itemPercent = document.getElementById('item-percent').value.trim();
+
+        // Validate inputs
+        if (!itemName || !itemPrice || !itemPercent) {
+            alert('Please fill out all fields.');
+            return;
+        }
+
+        // Create a new list item
+        const listItem = document.createElement('li');
+        listItem.textContent = `${itemName} || GHS ${itemPrice} || ${itemPercent}%`;
+
+        // Append the new item to the list
+        document.getElementById('items').appendChild(listItem);
+
+        // Clear the input fields
+        document.getElementById('item-name').value = '';
+        document.getElementById('item-price').value = '';
+        document.getElementById('item-percent').value = '';
+    });
+
+    function displayTime () {
+        const clockElement = document.getElementById('clock');
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        clockElement.textContent = `${hours}:${minutes}:${seconds}`;
+    }
+    setInterval(displayTime, 1000);
+    displayTime();
+
+
+
+
+    for (let i = 1; i <= 10; i++) {
+        const container = document.createElement('div');
+        container.className = 'container';
+
+        const label = document.createElement('input');
+        label.textContent = `item`;
+
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.min = '1';
+        input.max = '100';
+        input.dataset.targetDiv = `div${i}`; // Link input to specific div
+
+        const dynamicDiv = document.createElement('div');
+        dynamicDiv.id = `div${i}`;
+        dynamicDiv.className = 'dynamicDiv';
+
+        // Append label, input, and div to the container
+        container.appendChild(label);
+        container.appendChild(input);
+        container.appendChild(dynamicDiv);
+        divContainer.appendChild(container);
+
+        // Add event listener for input
+        input.addEventListener('input', () => {
+            let height = parseInt(input.value, 10);
+                if (height > 100) {
+                    height = 100;
+                    input.value = 100;
+                } else if (height < 1 || isNaN(height)) {
+                    height = 0;
+                }
+                dynamicDiv.style.height = `${height}px`;
+            });
+    };
+        
+
+
+        
+    </script>
+</body>
+</html>
