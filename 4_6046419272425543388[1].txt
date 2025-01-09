@@ -64,6 +64,11 @@
             		<input type="number" placeholder="Need percentage" id="item-percent" class="input">
             		<button id="add-list" class="btn" style="margin-top: 20px;">Enter Data</button>
             		<br>
+			<span>Expenses</span>
+            		<span style="font-size: 12pt; margin-top: 10px;">Enter prices of needs</span>
+            		<input type="number" placeholder="GHS 0.00" id="input-expense" class="input">
+            		<button id="expense" class="btn" style="margin-top: 20px;">Enter Data</button>
+
 		</nav>
 		<div class="col"></div>
 		<div class="col-mid"></div>
